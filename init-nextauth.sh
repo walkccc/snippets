@@ -468,7 +468,7 @@ model User {
   updatedAt     DateTime  @default(now()) @map(name: "updated_at")
 
   accounts Account[]
-  Post     Post[]
+  posts    Post[]
 
   stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
   stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
