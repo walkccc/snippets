@@ -62,6 +62,36 @@ next-env.d.ts
 # velite files
 .velite'
 
+ENV_EXAMPLE='# -----------------------------------------------------------------------------
+# Authentication (Auth.js)
+# -----------------------------------------------------------------------------
+NEXTAUTH_SECRET=
+
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+
+# -----------------------------------------------------------------------------
+# Database (PostgreSQL - Neon.tech)
+# -----------------------------------------------------------------------------
+DIRECT_URL=
+DATABASE_URL=
+
+# -----------------------------------------------------------------------------
+# Stripe (dev)
+# -----------------------------------------------------------------------------
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+STRIPE_SECRET_KEY=sk_test_
+STRIPE_WEBHOOK_SECRET=whsec_
+STRIPE_PRO_MONTHLY_PLAN_ID=price_
+
+# -----------------------------------------------------------------------------
+# Stripe (prod)
+# -----------------------------------------------------------------------------
+STRIPE_API_KEY=pk_test_'
+
 HUSKY_PRE_COMMIT='prettier . -w
 npx eslint --fix .
 git add -A .'
@@ -96,6 +126,7 @@ update_or_create_file ".prettierrc" "$PRETTIERRC"
 update_or_create_file ".eslintrc.json" "$ESLINTRC"
 update_or_create_file ".gitignore" "$GITIGNORE"
 update_or_create_file ".husky/pre-commit" "$HUSKY_PRE_COMMIT"
+update_or_create_file ".env.example" "$ENV_EXAMPLE"
 
 remove_file "app/page.tsx"
 remove_file "app/favicon.ico"
