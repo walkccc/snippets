@@ -133,4 +133,4 @@ remove_file "app/favicon.ico"
 
 git commit # to trigger husky
 git add .
-git commit -m 'chore: standard initial setup'
+git commit -m $'chore: standard initial setup\n\n```bash\nbash <(curl -s https://raw.githubusercontent.com/walkccc/snippets/main/init-next.sh)\n```'
