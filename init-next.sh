@@ -11,15 +11,38 @@ PRETTIERRC='{
   "plugins": ["prettier-plugin-tailwindcss"]
 }'
 
-ESLINTRC='{
-  "extends": "next/core-web-vitals",
-  "ignorePatterns": [".next/**", "node_modules/**"],
-  "plugins": ["simple-import-sort"],
-  "rules": {
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error"
-  }
-}'
+ESLINT_CONFIG="import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import simpleImportSort from 'eslint-plugin-simple-import-sort';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+  recommendedConfig: js.configs.recommended,
+  allConfig: js.configs.all,
+});
+
+const eslintConfig = [
+  {
+    ignores: ['**/.next/', '**/node_modules/'],
+  },
+  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  {
+    plugins: {
+      'simple-import-sort': simpleImportSort,
+    },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error',
+    },
+  },
+];
+
+export default eslintConfig;"
 
 GITIGNORE='# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
@@ -123,7 +146,7 @@ npm install -D eslint-plugin-simple-import-sort husky prettier prettier-plugin-t
 npx husky init
 
 update_or_create_file ".prettierrc" "$PRETTIERRC"
-update_or_create_file ".eslintrc.json" "$ESLINTRC"
+update_or_create_file ".eslint.config.mjs" "$ESLINT_CONFIG"
 update_or_create_file ".gitignore" "$GITIGNORE"
 update_or_create_file ".husky/pre-commit" "$HUSKY_PRE_COMMIT"
 update_or_create_file ".env.example" "$ENV_EXAMPLE"
