@@ -914,29 +914,6 @@ PUBLIC_LOCALES_ZH=$(cat <<'ELO'
 ELO
 )
 
-TYPES_INDEX=$(cat << 'EOL'
-export type NavItem = {
-  title: string;
-  href: string;
-  disabled?: boolean;
-};
-
-export type MarketingConfig = {
-  navItems: NavItem[];
-};
-
-export type SiteConfig = {
-  name: string;
-  description: string;
-  url: string;
-  links: {
-    twitter: string;
-    github: string;
-  };
-};
-EOL
-)
-
 function update_or_create_file() {
   local filename="$1"
   local content="$2"
@@ -972,7 +949,6 @@ update_or_create_file "i18n/request.ts" "$I18N_REQUEST"
 update_or_create_file "i18n/routing.ts" "$I18N_ROUTING"
 update_or_create_file "public/locales/en.json" "$PUBLIC_LOCALES_EN"
 update_or_create_file "public/locales/zh.json" "$PUBLIC_LOCALES_ZH"
-update_or_create_file "types/index.ts" "$TYPES_INDEX"
 
 npm install next-intl
 npm install next-themes
