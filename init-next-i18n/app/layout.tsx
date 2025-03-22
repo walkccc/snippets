@@ -7,7 +7,7 @@ import localFont from 'next/font/local';
 import { ThemeProvider } from 'next-themes';
 
 import { TailwindIndicator } from '@/components/tailwind-indicator';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 
 const inter: NextFontWithVariable = Inter({
