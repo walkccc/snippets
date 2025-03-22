@@ -34,7 +34,6 @@ function update_or_create_file() {
 
 update_or_create_file "init-next-i18n" "middleware.ts"
 update_or_create_file "init-next-i18n" "next.config.ts"
-update_or_create_file "init-next-i18n" "tailwind.config.ts"
 update_or_create_file "init-next-i18n" "app/layout.tsx"
 update_or_create_file "init-next-i18n" "app/[locale]/layout.tsx"
 update_or_create_file "init-next-i18n" "app/[locale]/(marketing)/layout.tsx"
@@ -60,9 +59,7 @@ update_or_create_file "init-next-i18n" "types/index.ts"
 npm install next-intl
 npm install next-themes
 npm install -D @tailwindcss/typography
-npx shadcn@latest add button dropdown-menu toast
-
-update_or_create_file "init-next-i18n" "hooks/use-toast.ts"
+npx shadcn@latest add button dropdown-menu sonner
 
 git add .
 git commit -m $'feat(ui): add `app/layout` and `app/[locale]/(marketing)`\n\n```bash\nbash <(curl -s https://raw.githubusercontent.com/walkccc/snippets/main/init-next-i18n.sh)\n```'
