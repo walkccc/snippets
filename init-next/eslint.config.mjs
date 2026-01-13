@@ -1,23 +1,16 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+// @ts-check
 
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
+import eslint from '@eslint/js';
+import { defineConfig } from 'eslint/config';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
+import tseslint from 'typescript-eslint';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-const eslintConfig = [
+export default defineConfig(
   {
-    ignores: ['**/.next/', '**/node_modules/'],
+    ignores: ['.next/**', 'node_modules/**', 'dist/**'],
   },
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
@@ -27,6 +20,4 @@ const eslintConfig = [
       'simple-import-sort/exports': 'error',
     },
   },
-];
-
-export default eslintConfig;
+);
