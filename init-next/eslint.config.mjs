@@ -16,6 +16,18 @@ export default defineConfig(
     rules: {
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['./*', '../*'],
+              message:
+                'Use absolute imports (@/...) instead of relative imports.',
+            },
+          ],
+        },
+      ],
     },
   },
 );
