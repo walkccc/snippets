@@ -41,7 +41,11 @@ function remove_file() {
   fi
 }
 
-npm install -D eslint-plugin-simple-import-sort husky prettier prettier-plugin-tailwindcss
+npm install -D \
+  typescript \
+  typescript-eslint \
+  eslint \
+  eslint-plugin-simple-import-sort
 
 npx husky init
 
