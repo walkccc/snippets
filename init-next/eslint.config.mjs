@@ -1,5 +1,3 @@
-// @ts-check
-
 import eslint from '@eslint/js';
 import { defineConfig } from 'eslint/config';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -10,7 +8,7 @@ export default defineConfig(
     ignores: ['.next/**', 'node_modules/**', 'dist/**'],
   },
   eslint.configs.recommended,
-  tseslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     plugins: {
       'simple-import-sort': simpleImportSort,
