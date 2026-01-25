@@ -21,7 +21,18 @@ export default defineConfig(
         {
           patterns: [
             {
-              group: ['./*', '../*'],
+              group: ['../*'],
+              message:
+                'Use absolute imports (@/...) instead of relative imports.',
+            },
+            {
+              group: [
+                './*',
+                '!./globals.css',
+                '!./*.css',
+                '!./*.scss',
+                '!./*.sass',
+              ],
               message:
                 'Use absolute imports (@/...) instead of relative imports.',
             },
