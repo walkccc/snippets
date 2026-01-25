@@ -45,7 +45,8 @@ npm install -D \
   typescript \
   typescript-eslint \
   eslint \
-  eslint-plugin-simple-import-sort
+  eslint-plugin-simple-import-sort \
+  husky prettier prettier-plugin-tailwindcss
 
 npx husky init
 
