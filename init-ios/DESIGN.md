@@ -1,7 +1,6 @@
 # Design System
 
-Theme tokens live in `Shared/Enums/AppTheme.swift`. The iOS design system lives
-under `{AppName}/{AppName}/DesignSystem/`.
+The iOS design system lives under `{AppName}/{AppName}/DesignSystem/`.
 
 Use existing tokens and primitives before adding new styling. Never declare
 ad-hoc spacing, radii, typography, materials, or animation when a token already
@@ -18,20 +17,11 @@ Use these instead of raw values like `.cornerRadius(16)`, `.padding(12)`,
 
 ### Primitives — `DesignSystem/Primitives/`
 
-`Surface`, `GlassChrome`, `GlassCapsule`, `RowItem`, `TransportButton`,
-`Scrubber`, `SectionHeader`, `EmptyState`.
+`Surface`, `GlassChrome`, `GlassCapsule`, `RowItem`, `SectionHeader`,
+`EmptyState`, and shared control primitives.
 
 The `Surface` / `GlassChrome` split is load-bearing: `Surface` is for opaque
 content, `GlassChrome` is for glass chrome. Do not mix these roles.
-
-### Chrome — `DesignSystem/Chrome/`
-
-`LiquidGlassTabBar`, `MiniPlayer`, `NowPlayingSheet`, `NowPlayingContent`,
-`MiniPlayerExpansion`.
-
-`App/AppShell.swift` is the single root that owns the tab bar, mini-player,
-sheet layout, and matched-geometry coordination. Feature views must not reach
-into chrome internals.
 
 ## Chrome vs Content
 
@@ -39,30 +29,28 @@ Use glass only for chrome with a refractable backdrop. Use opaque surfaces for
 content that needs legibility — never glass for dense text, forms, editors, or
 confirmation dialogs.
 
-| Surface                     | Material                   |
-| --------------------------- | -------------------------- |
-| Tab bar                     | `Materials.chromeGlass`    |
-| Mini-player                 | `Materials.chromeGlass`    |
-| NowPlayingSheet header      | `Materials.chromeGlass`    |
-| Provider chip               | `Materials.capsuleTier`    |
-| Device chip                 | `Materials.capsuleTier`    |
-| Transport buttons on chrome | `Materials.controlTier`    |
-| Settings form sections      | `Materials.contentSurface` |
-| Override editor sheet       | `Materials.contentSurface` |
-| Dropdowns and menus         | `Materials.popoverSurface` |
-| Destructive confirmations   | `Materials.popoverSurface` |
+| Surface                      | Material                   |
+| ---------------------------- | -------------------------- |
+| Tab bar                      | `Materials.chromeGlass`    |
+| Floating / persistent chrome | `Materials.chromeGlass`    |
+| Sheet header                 | `Materials.chromeGlass`    |
+| Status / filter chips        | `Materials.capsuleTier`    |
+| Controls on chrome           | `Materials.controlTier`    |
+| Form sections                | `Materials.contentSurface` |
+| Editor sheets                | `Materials.contentSurface` |
+| Dropdowns and menus          | `Materials.popoverSurface` |
+| Destructive confirmations    | `Materials.popoverSurface` |
 
 ## Navigation IA
 
-Four tabs: Library (default launch), Tango, Settings, Search.
+Keep a small, stable set of top-level destinations and make one the default
+launch surface. Tabs are for peer destinations the user switches between, not
+for transient flows.
 
-Now Playing is not a tab — it is the expanded state of the persistent
-`MiniPlayer` above the tab bar. When a song is selected from Library or Search:
-
-1. Play the track.
-2. Call `MiniPlayerExpansion.requestExpand()`.
-3. Let `NowPlayingSheet` animate from the mini-player using the matched-geometry
-   namespace owned by `AppShell`.
+Transient surfaces — detail screens, editors, expanded states — are presented on
+top of a destination, not promoted to tabs. When a surface expands from an
+element on screen, drive the transition with a matched-geometry namespace owned
+by the app shell so the origin and destination stay visually connected.
 
 ## Motion
 
@@ -71,15 +59,15 @@ Use only these roles. Do not write custom spring animations
 
 | Role           | Purpose                                             |
 | -------------- | --------------------------------------------------- |
-| `Motion.pop`   | transport taps, button presses, active-line scale   |
+| `Motion.pop`   | taps, button presses, active-element scale          |
 | `Motion.ease`  | selection, hint dismissal, incidental state changes |
-| `Motion.sheet` | mini-player expansion and sheet presentation        |
+| `Motion.sheet` | expansion and sheet presentation                    |
 
 ## Accessibility
 
 Every interactive element needs an accessibility label — buttons, capsules,
-transport controls, scrubbers, menu triggers, and custom rows with tap actions.
-`TransportButton` exposes its label by construction.
+controls, menu triggers, and custom rows with tap actions. Prefer primitives
+that expose their label by construction.
 
 - Typography tokens use relative text styles so Dynamic Type works by default.
 - Glass falls back to opaque material when Reduce Transparency is enabled.
