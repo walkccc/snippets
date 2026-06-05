@@ -1,0 +1,41 @@
+# --- General ---
+
+--swift-version 6.0
+--language-mode 6
+--min-version 0.58.7
+
+# --- Indentation & Layout ---
+
+--indent 2
+--maxwidth 100
+--tabwidth 2
+--trim-whitespace always
+--insertlines enabled
+--linebreaks lf
+
+# --- Standard Rules ---
+
+--allman false
+--else-position same-line
+--empty-braces no-space
+--semicolons never
+--trailing-commas always
+
+# --- Organization & Naming ---
+
+--import-grouping alpha
+--strip-unused-args always
+--property-types explicit
+--redundant-async tests-only
+
+# --- Math & Literals ---
+
+--binarygrouping 4,4
+--decimalgrouping 3,3
+--hexgrouping 4,4
+--ranges spaced
+
+# --- Comments ---
+
+--comments indent
+--doc-comments preserve
