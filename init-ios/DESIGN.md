@@ -10,7 +10,7 @@ exists.
 
 ### Tokens — `DesignSystem/Tokens/`
 
-`Radii`, `Spacing`, `Typography`, `Motion`, `Materials`.
+`Palette`, `Spacing`, `Radii`, `Typography`, `Motion`.
 
 Use these instead of raw values like `.cornerRadius(16)`, `.padding(12)`,
 `Font.system(size: 14)`, or `Animation.spring(...)`.
