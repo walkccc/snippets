@@ -139,7 +139,8 @@ Targets:
   simulators  List available simulators.
 
 Options:
-  --launch             Launch the app after installing.
+  --launch             Launch the app after installing. Simulator launches by default.
+  --no-launch          Install without launching.
   --skip-build         Install the app already built in .build/DerivedData.
   --device NAME_OR_ID  Override the physical iPhone used by devicectl.
   --device-name NAME   Build for a named iPhone instead of generic iOS.
@@ -157,10 +158,11 @@ Configuration:
 
 Examples:
   scripts/run.sh device --device "iPhone"
+  scripts/run.sh device --device "iPhone" --launch
   scripts/run.sh devices
   scripts/run.sh simulators
   scripts/run.sh simulator --simulator "iPhone 17"
-  scripts/run.sh simulator --simulator "iPhone 17 Pro" --launch
+  scripts/run.sh simulator --simulator "iPhone 17 Pro"
 USAGE
 }
 
@@ -173,6 +175,7 @@ fi
 shift
 
 launch=false
+no_launch=false
 skip_build=false
 device_override=""
 device_name_override=""
@@ -182,6 +185,11 @@ while (($#)); do
   case "$1" in
     --launch)
       launch=true
+      shift
+      ;;
+    --no-launch)
+      launch=false
+      no_launch=true
       shift
       ;;
     --skip-build)
@@ -247,6 +255,10 @@ case "$target" in
     die "unknown target: $target"
     ;;
 esac
+
+if [[ "$platform" == "simulator" && "$no_launch" == false ]]; then
+  launch=true
+fi
 
 PROJECT="${PROJECT:-$(discover_project)}"
 SCHEME="${SCHEME:-$(default_scheme "$PROJECT")}"
