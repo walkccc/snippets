@@ -133,13 +133,13 @@ Usage:
   scripts/run.sh <target> [options]
 
 Targets:
-  device      Build and install on a physical iPhone.
-  simulator   Build and install on an iOS simulator.
+  device      Build, install, and launch on a physical iPhone.
+  simulator   Build, install, and launch on an iOS simulator.
   devices     List physical devices known to Xcode.
   simulators  List available simulators.
 
 Options:
-  --launch             Launch the app after installing. Simulator launches by default.
+  --launch             Launch the app after installing. This is the default.
   --no-launch          Install without launching.
   --skip-build         Install the app already built in .build/DerivedData.
   --device NAME_OR_ID  Override the physical iPhone used by devicectl.
@@ -158,7 +158,6 @@ Configuration:
 
 Examples:
   scripts/run.sh device --device "iPhone"
-  scripts/run.sh device --device "iPhone" --launch
   scripts/run.sh devices
   scripts/run.sh simulators
   scripts/run.sh simulator --simulator "iPhone 17"
@@ -256,7 +255,7 @@ case "$target" in
     ;;
 esac
 
-if [[ "$platform" == "simulator" && "$no_launch" == false ]]; then
+if [[ "$no_launch" == false ]]; then
   launch=true
 fi
 
