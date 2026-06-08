@@ -18,17 +18,20 @@ discover_project() {
 
   while IFS= read -r -d '' project; do
     projects+=("$project")
-  done < <(find "$ROOT_DIR" -maxdepth 1 -name '*.xcodeproj' -type d -print0)
+  done < <(find "$ROOT_DIR" -maxdepth 3 -name '*.xcodeproj' -type d -print0)
 
   case "${#projects[@]}" in
     0)
-      die "no .xcodeproj found in $ROOT_DIR; set PROJECT"
+      die "no .xcodeproj found under $ROOT_DIR; set PROJECT"
       ;;
     1)
       printf '%s' "${projects[0]}"
       ;;
     *)
-      die "multiple .xcodeproj files found in $ROOT_DIR; set PROJECT"
+      printf 'error: multiple .xcodeproj files found under %s; set PROJECT\n' "$ROOT_DIR" >&2
+      printf 'found:\n' >&2
+      printf '  %s\n' "${projects[@]}" >&2
+      exit 1
       ;;
   esac
 }
